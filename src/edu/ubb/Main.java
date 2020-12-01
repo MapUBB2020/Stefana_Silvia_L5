@@ -26,8 +26,15 @@ public class Main //extends Application {
 
     public static void main(String[] args) throws IOException {
         //launch(args);
-        JsonReader jsonReader=new JsonReader();
+        /*JsonReader jsonReader=new JsonReader();
         for(Question q: jsonReader.jsonReader())
-            System.out.println(q.getQuestion());
+            System.out.println(q.getQuestion());*/
+
+        ControllerQuiz cq=new ControllerQuiz();
+        cq.quizGenerator();
+        JsonReader jsonReader=new JsonReader();
+        for(int i=0; i<26; i++)
+            System.out.println(cq.getQuiz().getQuestions().get(i));
+
     }
 }

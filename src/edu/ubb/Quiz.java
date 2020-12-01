@@ -1,6 +1,9 @@
 package edu.ubb;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Quiz {
 
@@ -11,7 +14,10 @@ public class Quiz {
     private int nrWrongAnswers;
     private List<Question> questions;
 
-    public Quiz(){}
+
+    public Quiz(List<Question> questions){
+        this.questions=questions;
+    }
 
     public Quiz(int idQuiz, int quizNumber, int questionNumber, int nrCorrectAnswers, int nrWrongAnswers, List<Question> questions) {
         this.idQuiz = idQuiz;
@@ -82,4 +88,5 @@ public class Quiz {
                 ", questions=" + questions +
                 '}';
     }
+
 }
