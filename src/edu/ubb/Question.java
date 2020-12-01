@@ -5,12 +5,14 @@ import java.util.List;
 public class Question {
 
         private int idQuestion;
+        private String question;
         List<String> answers;
         List<String> correctAnswers;
 
         public Question(){}
-        public Question(int idQuestion, List<String> answers, List<String> correctAnswers) {
+        public Question(int idQuestion, String question, List<String> answers, List<String> correctAnswers) {
             this.idQuestion = idQuestion;
+            this.question = question;
             this.answers = answers;
             this.correctAnswers = correctAnswers;
         }
@@ -23,7 +25,11 @@ public class Question {
             this.idQuestion = idQuestion;
         }
 
-        public List<String> getAnswers() {
+        public String getQuestion() { return question; }
+
+        public void setQuestion(String question) { this.question = question; }
+
+         public List<String> getAnswers() {
             return answers;
         }
 
@@ -43,6 +49,7 @@ public class Question {
         public String toString() {
             return "Question{" +
                     "idQuestion=" + idQuestion +
+                    " question= " + question +
                     ", answers=" + answers +
                     ", correctAnswers=" + correctAnswers +
                     '}';

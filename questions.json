@@ -1,4 +1,4 @@
-{"questions": [{
+[{
   "idQuestion":1,
   "question":"Cum veţi proceda dacă intenţionaţi să schimbaţi direcţia de mers spre dreapta?",
   "answers": [
@@ -400,4 +400,3 @@
   }
 
 ]
-}
