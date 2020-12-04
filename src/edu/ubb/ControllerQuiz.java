@@ -7,6 +7,11 @@ import java.util.Random;
 
 public class ControllerQuiz {
 
+    public ControllerQuiz() {}
+    public ControllerQuiz(Quiz quiz) {
+        this.quiz = quiz;
+    }
+
     private Quiz quiz;
 
     public Quiz getQuiz() {
@@ -17,7 +22,7 @@ public class ControllerQuiz {
         this.quiz = quiz;
     }
 
-    public void quizGenerator() throws IOException {
+    public List<Question> quizGenerator() throws IOException {
 
         JsonReader jsonReader=new JsonReader();
         List<Question> allQuestions = jsonReader.jsonReader();
@@ -33,5 +38,12 @@ public class ControllerQuiz {
         }
 
         quiz = new Quiz(quizQuestions);
+        return quizQuestions;
+    }
+
+    public void showQuestion() throws IOException {
+        quizGenerator();
+        for(Question q:quiz.getQuestions())
+            System.out.println(q);
     }
 }

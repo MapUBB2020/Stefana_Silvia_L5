@@ -4,14 +4,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.beans.EventHandler;
 import java.io.IOException;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main extends Application {
 
@@ -22,22 +20,24 @@ public class Main extends Application {
             primaryStage.setTitle("Hello World");
             primaryStage.setScene(new Scene(root, 300, 275));
             primaryStage.show();
+
+            Controller controller = new Controller();
+
+
         }
 
 
-        public static void main(String[] args) {
+        public static void main(String[] args) throws IOException {
             launch(args);
+/*            ControllerQuiz cq = new ControllerQuiz();
+            Quiz q=new Quiz(cq.quizGenerator());
+            Button start=new Button();
+            start.setOnAction(actionEvent -> q.getQuestions());*/
+
         }
     }
-  /* @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("view.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();
-    }
 
-
+/*
     public static void main(String[] args) {//throws IOException {
         launch(args);
         JsonReader jsonReader=new JsonReader();
