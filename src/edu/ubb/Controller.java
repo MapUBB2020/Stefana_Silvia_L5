@@ -26,27 +26,29 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
 
-    @FXML
-    public Label intrb;
-
     Stage stage = new Stage();
-    ControllerQuiz cq;
+    /*ControllerQuiz cq;
 
-    public Controller(ControllerQuiz cq){this.cq=cq;}
+    public Controller(ControllerQuiz cq){this.cq=cq;}*/
 
+    /*@FXML
+    public Label intrb;*/
     @Override
-    @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //StartUp
-        ControllerQuiz cq = new ControllerQuiz();
-        intrb.setText(cq.getQuiz().getQuestions().get(0).getQuestion());
+        /*ControllerQuiz cq = new ControllerQuiz();
+        intrb.setText(cq.getQuiz().getQuestions().get(0).getQuestion());*/
     }
 
+    /*@FXML
+    public Label intrb;*/
     public void startQuiz(ActionEvent e) throws Exception {
         Parent finishRoot = FXMLLoader.load(getClass().getResource("view2.fxml"));
         Scene questionScene =  new Scene(finishRoot);
 
         stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+
+
         stage.setScene(questionScene);
         stage.show();
 

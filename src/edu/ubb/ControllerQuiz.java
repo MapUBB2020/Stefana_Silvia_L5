@@ -50,4 +50,9 @@ public class ControllerQuiz {
         for(Question q:quiz.getQuestions())
             System.out.println(q);
     }
+
+    /*@FXML public Label intrb;
+    public void inLabel(){
+        intrb.setText("aaaa");
+    }*/
 }

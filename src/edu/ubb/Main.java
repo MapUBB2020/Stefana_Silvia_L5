@@ -21,10 +21,10 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-    @FXML
+/*    @FXML
     public Label pls;
     @FXML
-    public Pane questionPane;
+    public Pane questionPane;*/
 
     @Override
         public void start(Stage primaryStage) throws Exception{
@@ -33,13 +33,16 @@ public class Main extends Application {
             primaryStage.setTitle("Hello Worlddd");
             primaryStage.setScene(new Scene(root, 900, 700));
 
-            ControllerQuiz cq = new ControllerQuiz();
+            /*ControllerQuiz cq = new ControllerQuiz();
             Quiz quiz;
             quiz=cq.quizGenerator();
             ControllerQuiz cquiz = new ControllerQuiz(quiz);
             Controller controller = new Controller(cquiz);
-
+*/
+            initView2();
             primaryStage.show();
+
+
 
 
             //ControllerQuiz cq = new ControllerQuiz();
@@ -64,6 +67,17 @@ public class Main extends Application {
 
         }
 
+        @FXML public Pane questionsPane;
+        public void initView2() throws IOException {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view2.fxml"));
+            questionsPane = (Pane) loader.load();
+
+            // Show the scene containing the root layout.
+           // Scene scene = new Scene(questionsPane);
+
+
+        }
         public static void main(String[] args) throws IOException {
             launch(args);
         }
