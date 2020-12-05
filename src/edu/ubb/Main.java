@@ -1,39 +1,71 @@
 package edu.ubb;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.beans.EventHandler;
 import java.io.IOException;
 
+
+
 public class Main extends Application {
 
+    @FXML
+    public Label pls;
+    @FXML
+    public Pane questionPane;
 
-        @Override
+    @Override
         public void start(Stage primaryStage) throws Exception{
+
             Parent root = FXMLLoader.load(getClass().getResource("view.fxml"));
-            primaryStage.setTitle("Hello World");
-            primaryStage.setScene(new Scene(root, 300, 275));
+            primaryStage.setTitle("Hello Worlddd");
+            primaryStage.setScene(new Scene(root, 900, 700));
+
+            ControllerQuiz cq = new ControllerQuiz();
+            Quiz quiz;
+            quiz=cq.quizGenerator();
+            ControllerQuiz cquiz = new ControllerQuiz(quiz);
+            Controller controller = new Controller(cquiz);
+
             primaryStage.show();
 
-            Controller controller = new Controller();
 
+            //ControllerQuiz cq = new ControllerQuiz();
+            //cq.quizGenerator();
+
+
+           /* Parent finishRoot = FXMLLoader.load(getClass().getResource("view2.fxml"));
+            Scene questionScene =  new Scene(finishRoot);
+
+            String question = cq.quizGenerator().getQuestions().get(0).getQuestion();
+            //intrb = new Label(question);
+            intrb.setText("aaa");*/
+
+
+            /*questionStage.setScene(questionScene);
+            questionStage.show();*/
+
+            /*String question = cq.quizGenerator().getQuestions().get(0).getQuestion();
+            intrb = new Label(question);*/
+            /*javafx.scene.control.Label intrb = new javafx.scene.control.Label();
+            intrb.setText("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");*/
 
         }
 
-
         public static void main(String[] args) throws IOException {
             launch(args);
-/*            ControllerQuiz cq = new ControllerQuiz();
-            Quiz q=new Quiz(cq.quizGenerator());
-            Button start=new Button();
-            start.setOnAction(actionEvent -> q.getQuestions());*/
-
         }
     }
 

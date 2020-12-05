@@ -1,11 +1,15 @@
 package edu.ubb;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class ControllerQuiz {
+
 
     public ControllerQuiz() {}
     public ControllerQuiz(Quiz quiz) {
@@ -22,7 +26,7 @@ public class ControllerQuiz {
         this.quiz = quiz;
     }
 
-    public List<Question> quizGenerator() throws IOException {
+    public Quiz quizGenerator() throws IOException {
 
         JsonReader jsonReader=new JsonReader();
         List<Question> allQuestions = jsonReader.jsonReader();
@@ -38,7 +42,7 @@ public class ControllerQuiz {
         }
 
         quiz = new Quiz(quizQuestions);
-        return quizQuestions;
+        return quiz;
     }
 
     public void showQuestion() throws IOException {

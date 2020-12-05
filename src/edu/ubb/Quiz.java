@@ -28,6 +28,10 @@ public class Quiz {
         this.questions = questions;
     }
 
+    public Quiz() {
+
+    }
+
     public int getIdQuiz() {
         return idQuiz;
     }
