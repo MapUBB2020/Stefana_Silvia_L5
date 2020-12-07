@@ -26,6 +26,7 @@ public class Main extends Application {
     @FXML
     public Pane questionPane;*/
 
+
     @Override
         public void start(Stage primaryStage) throws Exception{
 
@@ -39,7 +40,7 @@ public class Main extends Application {
             ControllerQuiz cquiz = new ControllerQuiz(quiz);
             Controller controller = new Controller(cquiz);
 */
-            initView2();
+            //initView2();
             primaryStage.show();
 
 
@@ -67,7 +68,7 @@ public class Main extends Application {
 
         }
 
-        @FXML public Pane questionsPane;
+/*        @FXML public Pane questionsPane;
         public void initView2() throws IOException {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view2.fxml"));
@@ -77,7 +78,7 @@ public class Main extends Application {
            // Scene scene = new Scene(questionsPane);
 
 
-        }
+        }*/
         public static void main(String[] args) throws IOException {
             launch(args);
         }

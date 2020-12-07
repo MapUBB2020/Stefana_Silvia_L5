@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="questionsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ubb.Controller">
+<Pane fx:id="questionsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ubb.ControllerQuiz">
    <children>
       <Button fx:id="buttonA" layoutX="106.0" layoutY="527.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="95.0" style="-fx-background-color: #31cfcc;" text="A" textFill="WHITE">
          <font>
