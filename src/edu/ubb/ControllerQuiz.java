@@ -51,6 +51,8 @@ public class ControllerQuiz {
             System.out.println(q);
     }
 
+
+
     /*@FXML public Label intrb;
     public void inLabel(){
         intrb.setText("aaaa");
