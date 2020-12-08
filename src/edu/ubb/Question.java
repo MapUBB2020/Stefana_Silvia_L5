@@ -8,6 +8,8 @@ public class Question {
         private String question;
         List<String> answers;
         List<String> correctAnswers;
+       // List<String> userAnswers;
+
 
         public Question(){}
         public Question(int idQuestion, String question, List<String> answers, List<String> correctAnswers) {
@@ -45,7 +47,15 @@ public class Question {
             this.correctAnswers = correctAnswers;
         }
 
-        @Override
+/*        public List<String> getUserAnswers() {
+            return userAnswers;
+        }
+
+        public void setUserAnswers(List<String> userAnswers) {
+            this.userAnswers = userAnswers;
+        }*/
+
+    @Override
         public String toString() {
             return "Question{" +
                     "idQuestion=" + idQuestion +

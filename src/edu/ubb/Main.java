@@ -32,7 +32,7 @@ public class Main extends Application {
 
             Parent root = FXMLLoader.load(getClass().getResource("view.fxml"));
             primaryStage.setTitle("Hello Worlddd");
-            primaryStage.setScene(new Scene(root, 900, 700));
+            primaryStage.setScene(new Scene(root, 1100, 800));
 
             /*ControllerQuiz cq = new ControllerQuiz();
             Quiz quiz;

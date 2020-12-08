@@ -13,24 +13,25 @@ public class Quiz {
     private int nrCorrectAnswers;
     private int nrWrongAnswers;
     private List<Question> questions;
+    public List<String> userAnswers;
 
 
     public Quiz(List<Question> questions){
         this.questions=questions;
     }
 
-    public Quiz(int idQuiz, int quizNumber, int questionNumber, int nrCorrectAnswers, int nrWrongAnswers, List<Question> questions) {
+    public Quiz(int idQuiz, int quizNumber, int questionNumber, int nrCorrectAnswers, int nrWrongAnswers, List<Question> questions, List<String> userAnswers) {
         this.idQuiz = idQuiz;
         this.quizNumber = quizNumber;
         this.questionNumber = questionNumber;
         this.nrCorrectAnswers = nrCorrectAnswers;
         this.nrWrongAnswers = nrWrongAnswers;
         this.questions = questions;
+        this.userAnswers = userAnswers;
     }
 
-    public Quiz() {
+    public Quiz() {}
 
-    }
 
     public int getIdQuiz() {
         return idQuiz;
@@ -79,6 +80,14 @@ public class Quiz {
 
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
+    }
+
+    public List<String> getUserAnswers() {
+        return userAnswers;
+    }
+
+    public void setUserAnswers(List<String> userAnswers) {
+        this.userAnswers = userAnswers;
     }
 
     @Override
