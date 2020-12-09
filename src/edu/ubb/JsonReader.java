@@ -13,15 +13,22 @@ import java.util.List;
 
 public class JsonReader {
 
+
+    /**
+     * reads from questions.json
+     * @return list with all the Question Objects
+     * @throws IOException
+     */
     public List<Question> jsonReader() throws IOException {
 
-        Gson gson=new GsonBuilder().setPrettyPrinting().create();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Path path = Paths.get("questions.json");
 
         List<Question> questionList;
 
-        try (Reader reader = Files.newBufferedReader(path)){
-            questionList=gson.fromJson(reader, new TypeToken<List<Question>>(){}.getType());
+        try (Reader reader = Files.newBufferedReader(path)) {
+            questionList = gson.fromJson(reader, new TypeToken<List<Question>>() {
+            }.getType());
         }
         return questionList;
     }
