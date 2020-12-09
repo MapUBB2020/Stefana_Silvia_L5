@@ -352,9 +352,9 @@
     "idQuestion":36,
     "question":"Cum trebuie să procedeze corect conducătorul de vehicul, pentru a trece de pe banda întâi a unui drum public pe banda a treia?",
     "answers": [
-              "A. obligaţia de a folosi în permanenţă carburant biodegradabil; ",
-              "B. deplasări urbane cu bicicleta, pe jos sau cu alte mijloace care nu poluează atmosfera;",
-              "C. un ansamblu de măsuri comportamentale, de control sau de verificare a vehiculului, prin care se realizează o importantă economie de energie şi protecţia mediului;"
+              "A. reduce viteza de mers şi trece de pe o bandă pe alta, asigurându-se continuu în oglinda retrovizoare; ",
+              "B. dacă trecerea de pe o bandă pe alta nu s-a făcut cu cel puţin 200 m înainte de intersecţie, manevra nu mai este posibilă; ",
+              "C. se asigură din spate şi semnalizează intenţia de a trece succesiv de pe banda întâi pe a doua, apoi pe a treia. "
               ],
     "correctAnswers":["C"]
   },
@@ -370,11 +370,11 @@
   },
   {
     "idQuestion":38,
-    "question":"La semnalul poliţistului situat într-o intersecţie, cu braţul ridicat vertical, aveţi obligaţia:",
+    "question":"Cum procedează conducătorul de autovehicule noaptea, când este orbit de lumina farurilor unui autovehicul care circulă din sens opus",
     "answers": [
-                "A. să circulaţi cu prudenţă maximă;",
-                "B. să reduceţi viteza;",
-                "C. să opriţi, indiferent din ce direcţie circulaţi;"
+                "A. pune sau menţine în funcţiune faza de drum, pentru a observa mai bine drumul pe direcţia de deplasare;",
+                "B. aprinde alternativ faza de drum şi de întâlnire, pentru a-l atenţiona pe celălalt conducător că circulă incorect;",
+                "C. menţine în funcţiune luminile de întâlnire, reduce viteza de deplasare şi opreşte dacă este cazul."
               ],
     "correctAnswers":["C"]
   },
@@ -382,7 +382,7 @@
     "idQuestion":39,
     "question":"În care dintre situațiile prezentate este interzisă depășirea vehiculelor pe drumurile publice?",
     "answers": [
-                "A.la întâlnirea indicatorului „Circulație în ambele sensuri“;",
+                "A. la întâlnirea indicatorului „Circulație în ambele sensuri“;",
                 "B. la o distanță mai mică de 50 m de stația de tramvai, când acesta este oprit;",
                 "C. la trecerile pentru pietoni prevăzute cu indicatoare și marcaje."
               ],

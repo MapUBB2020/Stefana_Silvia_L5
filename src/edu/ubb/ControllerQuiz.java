@@ -45,50 +45,10 @@ public class ControllerQuiz {
         return quiz;
     }
 
-    public void showQuestion() throws IOException {
-        quizGenerator();
-        for(Question q:quiz.getQuestions())
-            System.out.println(q);
-    }
 
-/*    public Quiz setNextQuestionFromQuiz(Quiz q){
-        String question="";
-        String answer1="";
-        String answer2="";
-        String answer3="";
-
-        for(int i=0; i<q.getQuestions().size(); i++){
-            question=q.getQuestions().get(i).getQuestion();
-            answer1=q.getQuestions().get(i).getAnswers().get(0);
-            answer2=q.getQuestions().get(i).getAnswers().get(1);
-            answer3=q.getQuestions().get(i).getAnswers().get(2);
-            rasp.add(answer1);
-            rasp.add(answer2);
-            rasp.add(answer3);
-
-        }
-
-    }*/
-
-/*    public int[] checkAnswer(Quiz quiz, int i){
+    public int[] checkAnswer(Quiz quiz, int i, List<String> aux){
         int[] points = new int[2];
 
-       // for(int i=0; i<quiz.getQuestions().size();i++){
-            for(int k=0; k<quiz.getQuestions().get(i).getCorrectAnswers().size();k++) {
-                for (int j = 0; j < quiz.getUserAnswers().size(); j++) {
-                    if (quiz.getUserAnswers().get(j).equals(quiz.getQuestions().get(i).getCorrectAnswers().get(i)))
-                        points[0] += 1;
-                    points[1] += 1;
-                }
-           // }
-        }
-        return points;
-    }*/
-
-    public int[] checkAnswer2(Quiz quiz, int i, List<String> aux){
-        int[] points = new int[2];
-
-        //List<String> aux= new ArrayList<>();
         quiz.setUserAnswers(aux);
 
         Collections.sort(quiz.getUserAnswers());
@@ -98,20 +58,7 @@ public class ControllerQuiz {
             points[0] += 1;
         else points[1] += 1;
 
-        System.out.println("c"+points[0]+"   g:"+points[1]);
-        System.out.println(quiz.getUserAnswers()+"          " +quiz.getQuestions().get(i).getCorrectAnswers());
-
-
-
         return points;
     }
 
-
-
-
-
-    /*@FXML public Label intrb;
-    public void inLabel(){
-        intrb.setText("aaaa");
-    }*/
 }

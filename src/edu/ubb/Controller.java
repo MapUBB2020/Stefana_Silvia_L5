@@ -1,29 +1,27 @@
 package edu.ubb;
 
+import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -34,6 +32,14 @@ public class Controller implements Initializable {
     Stage stage = new Stage();
     Quiz quiz;
     ControllerQuiz cq = new ControllerQuiz();
+
+    private static final Integer start = 60;
+    private Timeline timeline;
+    private int min = 30;
+    private int startTimeSec, startTimeMin;
+
+    private Label timerLabel = new Label();
+
     final int[] count = {0};
     private List<String> answersAux;
 
@@ -43,34 +49,41 @@ public class Controller implements Initializable {
     }
 
     public void startQuiz(ActionEvent e) throws Exception {
-        //Parent finishRoot = FXMLLoader.load(getClass().getResource("view.fxml"));
+
         Scene scene =  new Scene(new Group(),1100,800);
-        //Scene sceneX =  new Scene(new Group(),900,700);
 
         stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        //stage.setScene(questionScene);
         quiz = cq.quizGenerator();
 
+        final int[] count = {0};
+
         //HBox headerBox=raspCorecte+raspGresite
+        timerLabel.setText("30:00");
+        timerLabel.setTextFill(javafx.scene.paint.Color.web("#7010ab"));
+        timerLabel.setStyle("-fx-font-size: 4em;");
+
         Label nrCorrectAnswers = new Label("✔" + Integer.toString(quiz.getNrCorrectAnswers()));
-        nrCorrectAnswers.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 18));
+        nrCorrectAnswers.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));
+        nrCorrectAnswers.setTextFill(javafx.scene.paint.Color.web("#57ca16"));
         nrCorrectAnswers.setWrapText(true);
         nrCorrectAnswers.setTextAlignment(TextAlignment.JUSTIFY);
         nrCorrectAnswers.setMaxWidth(700);
 
         Label nrWrongAmswers = new Label("✘" + Integer.toString(quiz.getNrWrongAnswers()));
-        nrWrongAmswers.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 18));
+        nrWrongAmswers.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));
+        nrWrongAmswers.setTextFill(javafx.scene.paint.Color.web("#FD0909"));
         nrWrongAmswers.setWrapText(true);
         nrWrongAmswers.setTextAlignment(TextAlignment.JUSTIFY);
         nrWrongAmswers.setMaxWidth(700);
 
         HBox headerBox = new HBox();
-        headerBox.setSpacing(600);
-        headerBox.setPadding(new Insets(-30, 0, 0, 0));
-        headerBox.getChildren().addAll(nrCorrectAnswers, nrWrongAmswers);
+        headerBox.setSpacing(300);
+        headerBox.setPadding(new Insets(10, 0, 0, 0));
+        headerBox.getChildren().addAll(nrCorrectAnswers, timerLabel, nrWrongAmswers);
 
 
         Label question = new Label(count[0] + 1 +")  " + quiz.getQuestions().get(0).getQuestion());
+        question.setPadding(new Insets(0, 0, 30, 0));
 
         //Setting font to the text
         question.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
@@ -78,7 +91,7 @@ public class Controller implements Initializable {
         //setting the position of the text
         question.setWrapText(true);
         question.setTextAlignment(TextAlignment.JUSTIFY);
-        question.setMaxWidth(700);
+        question.setMaxWidth(900);
 
 
         //VBox answerBox = answer1+2+3
@@ -90,7 +103,7 @@ public class Controller implements Initializable {
         //setting the position of the text
         answer1.setWrapText(true);
         answer1.setTextAlignment(TextAlignment.JUSTIFY);
-        answer1.setMaxWidth(700);
+        answer1.setMaxWidth(800);
 
         Label answer2 = new Label(quiz.getQuestions().get(0).getAnswers().get(1));
 
@@ -100,7 +113,7 @@ public class Controller implements Initializable {
         //setting the position of the text
         answer2.setWrapText(true);
         answer2.setTextAlignment(TextAlignment.JUSTIFY);
-        answer2.setMaxWidth(700);
+        answer2.setMaxWidth(800);
 
         Label answer3 = new Label(quiz.getQuestions().get(0).getAnswers().get(2));
 
@@ -110,11 +123,13 @@ public class Controller implements Initializable {
         //setting the position of the text
         answer3.setWrapText(true);
         answer3.setTextAlignment(TextAlignment.JUSTIFY);
-        answer3.setMaxWidth(700);
+        answer3.setMaxWidth(800);
 
         VBox answerBox = new VBox();
         answerBox.setSpacing(15);
-        answerBox.setPadding(new Insets(35, 0, 0, 0));
+        answerBox.setPadding(new Insets(50, 0, 0, 0));
+        answerBox.setAlignment(Pos.CENTER);
+
         answerBox.getChildren().addAll(question,answer1, answer2, answer3);
 
 
@@ -128,18 +143,20 @@ public class Controller implements Initializable {
 
         answersAux=new ArrayList<>();
         buttonA.setOnAction(actionEvent -> {
-            answersAux.add("A");
-            System.out.println(answersAux);});
+            buttonA.setStyle("-fx-color: #42d4d0; -fx-border-width: 5px; -fx-border-color: #871dc8 ");
+            answersAux.add("A");});
         buttonB.setOnAction(actionEvent -> {
-            answersAux.add("B");
-            System.out.println(answersAux);});
+            buttonB.setStyle("-fx-color: #42d4d0; -fx-border-width: 5px; -fx-border-color: #871dc8 ");
+            answersAux.add("B");});
         buttonC.setOnAction(actionEvent -> {
+            buttonC.setStyle("-fx-color: #42d4d0; -fx-border-width: 5px; -fx-border-color: #871dc8 ");
             answersAux.add("C");
-            System.out.println(answersAux);});
+        });
 
         HBox buttonAnswBox = new HBox();
-        buttonAnswBox.setSpacing(150);
-        buttonAnswBox.setPadding(new Insets(70, 0, 0, 0));
+        buttonAnswBox.setSpacing(165);
+        buttonAnswBox.setPadding(new Insets(40, 0, 0, 0));
+        buttonAnswBox.setAlignment(Pos.BOTTOM_CENTER);
         buttonAnswBox.getChildren().addAll(buttonA, buttonB, buttonC);
 
 
@@ -151,17 +168,70 @@ public class Controller implements Initializable {
         Button raspMaiTzButton = new Button("Raspund mai tarziu");
         raspMaiTzButton.setPrefSize(140, 60);
 
+        modificaButton.setOnAction(actionEvent -> {
+            answersAux.clear();
+            quiz.setUserAnswers(answersAux);
+            buttonA.setStyle (null);
+            buttonB.setStyle (null);
+            buttonC.setStyle (null);
+        });
+
         HBox buttonOptBox = new HBox();
         buttonOptBox.setSpacing(100);
         buttonOptBox.setPadding(new Insets(10, 0, 0, 0));
+        buttonOptBox.setAlignment(Pos.BOTTOM_CENTER);
         buttonOptBox.getChildren().addAll(raspMaiTzButton, modificaButton, trimiteButton);
+
+
+        timeline = new Timeline();
+        if (timeline != null) {
+            timeline.stop();
+        }
+        if (startTimeMin >= 0) {
+            KeyFrame keyFrame = new KeyFrame(Duration.seconds(1),
+                    new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            startTimeSec--;
+                            boolean isSecondZero = startTimeSec < 0;
+                            boolean timeToStop = startTimeSec < 0 && startTimeMin == 0;
+
+                            if (isSecondZero) {
+                                startTimeMin--;
+                                startTimeSec = 59;
+                            }
+
+                            if (timeToStop) {
+                                timeline.stop();
+                                startTimeMin = 0;
+                                startTimeSec = 0;
+
+                                endScene(quiz);
+
+                            }
+                            timerLabel.setText(String.format("%02d:%02d", startTimeMin, startTimeSec));
+
+                        }
+                    });
+            startTimeSec = start;
+            startTimeMin = min - 1;
+            timeline.setCycleCount(Timeline.INDEFINITE);
+            timeline.getKeyFrames().add(keyFrame);
+            timeline.playFromStart();
+        }
+
+        VBox allButtonsBox = new VBox();
+        allButtonsBox.setSpacing(30);
+        allButtonsBox.setPadding(new Insets(40, 0, 0, 0));
+        allButtonsBox.setAlignment(Pos.CENTER);
+        allButtonsBox.getChildren().addAll(buttonAnswBox, buttonOptBox);
 
         // VBox myVBox= all my boxes
         VBox myVBox = new VBox();
         myVBox.setSpacing(30);
         myVBox.setPadding(new Insets(100, 0, 0, 120));
         myVBox.setAlignment(Pos.CENTER);
-        myVBox.getChildren().addAll(headerBox, answerBox, buttonAnswBox, buttonOptBox);
+        myVBox.getChildren().addAll(headerBox, answerBox, allButtonsBox);
         ((Group) scene.getRoot()).getChildren().addAll(myVBox);
 
         //Setting title to the Stage
@@ -170,48 +240,62 @@ public class Controller implements Initializable {
         //Adding scene to the stage
         stage.setScene(scene);
 
-
         //Displaying the contents of the stage
         stage.show();
 
         trimiteButton.setOnAction(actionEvent -> {
             quiz.setUserAnswers(answersAux);
-            System.out.println(quiz.getUserAnswers());
-            cq.checkAnswer2(quiz, 0, answersAux);
-            quiz.setNrCorrectAnswers(quiz.getNrCorrectAnswers()+cq.checkAnswer2(quiz,0, answersAux)[0]);
-            quiz.setNrWrongAnswers(quiz.getNrWrongAnswers()+cq.checkAnswer2(quiz,0, answersAux)[1]);
-            nextQuestion(quiz);
+            cq.checkAnswer(quiz, 0, answersAux);
+            quiz.setNrCorrectAnswers(quiz.getNrCorrectAnswers()+cq.checkAnswer(quiz,0, answersAux)[0]);
+            quiz.setNrWrongAnswers(quiz.getNrWrongAnswers()+cq.checkAnswer(quiz,0, answersAux)[1]);
+            nextQuestion(quiz, count);
       });
+
 
     }
 
-    public void nextQuestion(Quiz quiz) {
+    public void nextQuestion(Quiz quiz, int[] count) {
+
+
 
         Scene scene2 = new Scene(new Group(), 1100, 800);
-        if (quiz.getQuestionNumber() < 25) {
+        int i = count[0] += 1;
 
-            int i = count[0] += 1;
-            System.out.println("nr intrebarii "+count[0]);
+        if(quiz.getNrWrongAnswers()>4)
+        {
+
+            endScene(quiz);
+        }
+        else if(i == 26)
+        {
+            endScene(quiz);
+        }
+        else
+        if (i < 26) {
+
 
             Label nrCorrectAnswers1 = new Label("✔" + Integer.toString(quiz.getNrCorrectAnswers()));
             nrCorrectAnswers1.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 18));
+            nrCorrectAnswers1.setTextFill(javafx.scene.paint.Color.web("#57ca16"));
             nrCorrectAnswers1.setWrapText(true);
             nrCorrectAnswers1.setTextAlignment(TextAlignment.JUSTIFY);
             nrCorrectAnswers1.setMaxWidth(700);
 
             Label nrWrongAmswers1 = new Label("✘" + Integer.toString(quiz.getNrWrongAnswers()));
             nrWrongAmswers1.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 18));
+            nrWrongAmswers1.setTextFill(javafx.scene.paint.Color.web("#FD0909"));
             nrWrongAmswers1.setWrapText(true);
             nrWrongAmswers1.setTextAlignment(TextAlignment.JUSTIFY);
             nrWrongAmswers1.setMaxWidth(700);
 
             HBox headerBox1 = new HBox();
-            headerBox1.setSpacing(600);
-            headerBox1.setPadding(new Insets(-30, 0, 0, 0));
-            headerBox1.getChildren().addAll(nrCorrectAnswers1, nrWrongAmswers1);
+            headerBox1.setSpacing(300);
+            headerBox1.setPadding(new Insets(10, 0, 0, 0));
+            headerBox1.getChildren().addAll(nrCorrectAnswers1, timerLabel, nrWrongAmswers1);
 
 
             Label question1 = new Label(count[0] + 1 +")  " + quiz.getQuestions().get(i).getQuestion());
+            question1.setPadding(new Insets(0, 0, 30, 0));
 
             //Setting font to the text
             question1.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
@@ -219,7 +303,7 @@ public class Controller implements Initializable {
             //setting the position of the text
             question1.setWrapText(true);
             question1.setTextAlignment(TextAlignment.JUSTIFY);
-            question1.setMaxWidth(700);
+            question1.setMaxWidth(900);
 
 
             //VBox answerBox = answer1+2+3
@@ -231,7 +315,7 @@ public class Controller implements Initializable {
             //setting the position of the text
             answer11.setWrapText(true);
             answer11.setTextAlignment(TextAlignment.JUSTIFY);
-            answer11.setMaxWidth(700);
+            answer11.setMaxWidth(800);
 
             Label answer21 = new Label(quiz.getQuestions().get(i).getAnswers().get(1));
 
@@ -241,7 +325,7 @@ public class Controller implements Initializable {
             //setting the position of the text
             answer21.setWrapText(true);
             answer21.setTextAlignment(TextAlignment.JUSTIFY);
-            answer21.setMaxWidth(700);
+            answer21.setMaxWidth(800);
 
             Label answer31 = new Label(quiz.getQuestions().get(i).getAnswers().get(2));
 
@@ -251,11 +335,12 @@ public class Controller implements Initializable {
             //setting the position of the text
             answer31.setWrapText(true);
             answer31.setTextAlignment(TextAlignment.JUSTIFY);
-            answer31.setMaxWidth(700);
+            answer31.setMaxWidth(800);
 
             VBox answerBox1 = new VBox();
             answerBox1.setSpacing(15);
             answerBox1.setPadding(new Insets(35, 0, 0, 0));
+            answerBox1.setAlignment(Pos.CENTER);
             answerBox1.getChildren().addAll(question1, answer11, answer21, answer31);
 
 
@@ -269,18 +354,19 @@ public class Controller implements Initializable {
 
             answersAux=new ArrayList<>();
             buttonA1.setOnAction(actionEvent -> {
-                answersAux.add("A");
-                System.out.println(answersAux);});
+                buttonA1.setStyle("-fx-color: #42d4d0; -fx-border-width: 5px; -fx-border-color: #871dc8 ");
+                answersAux.add("A");});
             buttonB1.setOnAction(actionEvent -> {
-                answersAux.add("B");
-                System.out.println(answersAux);});
+                buttonB1.setStyle("-fx-color: #42d4d0; -fx-border-width: 5px; -fx-border-color: #871dc8 ");
+                answersAux.add("B");});
             buttonC1.setOnAction(actionEvent -> {
-                answersAux.add("C");
-                System.out.println(answersAux);});
+                buttonC1.setStyle("-fx-color: #42d4d0; -fx-border-width: 5px; -fx-border-color: #871dc8 ");
+                answersAux.add("C");});
 
             HBox buttonAnswBox1 = new HBox();
-            buttonAnswBox1.setSpacing(150);
-            buttonAnswBox1.setPadding(new Insets(70, 0, 0, 0));
+            buttonAnswBox1.setSpacing(165);
+            buttonAnswBox1.setPadding(new Insets(40, 0, 0, 0));
+            buttonAnswBox1.setAlignment(Pos.BOTTOM_CENTER);
             buttonAnswBox1.getChildren().addAll(buttonA1, buttonB1, buttonC1);
 
 
@@ -292,10 +378,25 @@ public class Controller implements Initializable {
             Button raspMaiTzButton1 = new Button("Raspund mai tarziu");
             raspMaiTzButton1.setPrefSize(140, 60);
 
+            modificaButton1.setOnAction(actionEvent -> {
+                answersAux.clear();
+                quiz.setUserAnswers(answersAux);
+                buttonA1.setStyle (null);
+                buttonB1.setStyle (null);
+                buttonC1.setStyle (null);
+            });
+
             HBox buttonOptBox1 = new HBox();
             buttonOptBox1.setSpacing(100);
             buttonOptBox1.setPadding(new Insets(10, 0, 0, 0));
+            buttonOptBox1.setAlignment(Pos.BOTTOM_CENTER);
             buttonOptBox1.getChildren().addAll(raspMaiTzButton1, modificaButton1, trimiteButton1);
+
+            VBox allButtonsBox1 = new VBox();
+            allButtonsBox1.setSpacing(30);
+            allButtonsBox1.setPadding(new Insets(40, 0, 0, 0));
+            allButtonsBox1.setAlignment(Pos.CENTER);
+            allButtonsBox1.getChildren().addAll(buttonAnswBox1, buttonOptBox1);
 
 
             // VBox myVBox= all my boxes
@@ -303,7 +404,7 @@ public class Controller implements Initializable {
             myVBox1.setSpacing(30);
             myVBox1.setPadding(new Insets(100, 0, 0, 120));
             myVBox1.setAlignment(Pos.CENTER);
-            myVBox1.getChildren().addAll(headerBox1, answerBox1, buttonAnswBox1, buttonOptBox1);
+            myVBox1.getChildren().addAll(headerBox1, answerBox1, allButtonsBox1);
             ((Group) scene2.getRoot()).getChildren().addAll(myVBox1);
 
             stage.setScene(scene2);
@@ -312,13 +413,79 @@ public class Controller implements Initializable {
 
             trimiteButton1.setOnAction(actionEvent -> {
                 quiz.setUserAnswers(answersAux);
-                System.out.println(quiz.getUserAnswers());
-                cq.checkAnswer2(quiz, 0,answersAux);
-                quiz.setNrCorrectAnswers(quiz.getNrCorrectAnswers()+cq.checkAnswer2(quiz,i,answersAux)[0]);
-                quiz.setNrWrongAnswers(quiz.getNrWrongAnswers()+cq.checkAnswer2(quiz,i,answersAux)[1]);
-                nextQuestion(quiz);});
+                cq.checkAnswer(quiz, 0,answersAux);
+                quiz.setNrCorrectAnswers(quiz.getNrCorrectAnswers()+cq.checkAnswer(quiz,i,answersAux)[0]);
+                quiz.setNrWrongAnswers(quiz.getNrWrongAnswers()+cq.checkAnswer(quiz,i,answersAux)[1]);
+                nextQuestion(quiz, count);});
 
         }
 
     }
+
+    public void endScene(Quiz quiz){
+        Scene finalScene = new Scene(new Group(), 1100, 900);
+
+
+        Label resultLabel=new Label();
+        String passed="ADMIS!";
+        String failed="RESPINS!";
+
+        if(quiz.getNrCorrectAnswers()>=22)
+            resultLabel.setText(passed);
+        else resultLabel.setText(failed);
+
+        resultLabel.setFont(Font.font("verdana", FontWeight.EXTRA_BOLD, FontPosture.REGULAR, 25));
+
+        Label puncteCorecte=new Label("Raspunsuri corecte: "+Integer.toString(quiz.getNrCorrectAnswers()));
+
+        puncteCorecte.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 18));
+        puncteCorecte.setStyle("-fx-color: #40c310; -fx-border-width: 3px; -fx-border-color: #37a40d ");
+
+        puncteCorecte.setWrapText(true);
+        puncteCorecte.setTextAlignment(TextAlignment.JUSTIFY);
+        puncteCorecte.setMaxWidth(700);
+
+        Label puncteGresite=new Label("Raspunsuri gresite: "+Integer.toString(quiz.getNrWrongAnswers()));
+
+        puncteGresite.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 18));
+        puncteGresite.setStyle("-fx-color: #de0821; -fx-border-width: 3px; -fx-border-color: #d20808 ");
+
+        puncteGresite.setWrapText(true);
+        puncteGresite.setTextAlignment(TextAlignment.JUSTIFY);
+        puncteGresite.setMaxWidth(700);
+
+        Button restart = new Button("RESTART");
+        restart.setStyle("-fx-background-color: #f6f1f1; -fx-border-width: 3px; -fx-border-color: #0f52b7 ");
+        restart.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 23));
+        restart.setPrefSize(160, 40);
+        restart.setPadding(new Insets(0, 0, 0, 0));
+        restart.setAlignment(Pos.BOTTOM_CENTER);
+
+        restart.setOnAction(actionEvent -> {
+            try {
+            startQuiz(actionEvent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        });
+
+
+        HBox punctajBox=new HBox();
+        punctajBox.setSpacing(150);
+        punctajBox.setPadding(new Insets(70, 0, 0, 0));
+        punctajBox.getChildren().addAll(puncteCorecte, puncteGresite);
+
+        VBox endBox=new VBox();
+        endBox.setSpacing(100);
+        endBox.setPadding(new Insets(140, 0, 0, 200));
+        endBox.setAlignment(Pos.CENTER);
+        endBox.getChildren().addAll(resultLabel, punctajBox, restart);
+        ((Group) finalScene.getRoot()).getChildren().addAll(endBox);
+
+
+        stage.setScene(finalScene);
+        stage.show();
+
+    }
+
 }
